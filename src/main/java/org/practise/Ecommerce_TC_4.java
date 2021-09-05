@@ -1,11 +1,14 @@
 package org.practise;
 
+import com.google.common.annotations.VisibleForTesting;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,7 +21,11 @@ import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 
 public class Ecommerce_TC_4 extends BaseTeste {
-    public static void main(String[] args) throws InterruptedException, IOException {
+
+    @Test
+    public void totalValidation() throws InterruptedException, IOException {
+
+
         AndroidDriver<AndroidElement> driver = capabilities("generalStore");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -79,7 +86,7 @@ public class Ecommerce_TC_4 extends BaseTeste {
 
         System.out.println("Label value: " + totalValue);
 
-        //Assert.assertSame(sum, num);
+        Assert.assertSame(sum, num);
 
         //Mobile Gestures
 
@@ -108,6 +115,7 @@ public class Ecommerce_TC_4 extends BaseTeste {
         value = value.substring(1);
         return Double.parseDouble(value);
 
-    }
+
+        }
 }
 
