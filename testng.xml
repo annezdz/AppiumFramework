@@ -5,6 +5,9 @@
         <classes>
             <class name="org.practise.Ecommerce_TC_4">
             </class>
+            <class name="org.practise.ApiDemoTest">
+            </class>
+
         </classes>
     </test>
 </suite>

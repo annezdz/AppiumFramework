@@ -1,5 +1,6 @@
 package org.practise;
 
+import PageObject.FormPage;
 import com.google.common.annotations.VisibleForTesting;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
@@ -29,12 +30,18 @@ public class Ecommerce_TC_4 extends BaseTeste {
         AndroidDriver<AndroidElement> driver = capabilities("generalStore");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        driver.findElementById("com.androidsample.generalstore:id/nameField").sendKeys("Anne");
-        driver.hideKeyboard();
-        driver.findElementByXPath("//android.widget.RadioButton[@text='Female']").click();
-        driver.findElementById("android:id/text1").click();
+        FormPage formPage = new FormPage(driver);
 
-        driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"Brazil\"));").click();
+        //formPage.nameField.sendKeys("Anne");
+        formPage.getNameField().sendKeys("Anne");
+        driver.hideKeyboard();
+        formPage.femaleOption.click();
+        formPage.getCountrySelection().click();
+
+        Utilities utilities = new Utilities(driver);
+
+        utilities.scrollToText("Belarus");
+
         driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
 
         driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()" +
