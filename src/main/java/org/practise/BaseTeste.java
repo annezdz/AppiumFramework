@@ -23,7 +23,7 @@ public class BaseTeste {
 
         prop.load(fis);
 
-        File apk = new File (prop.getProperty("generalStore"));
+        File apk = new File (prop.getProperty("apiDemo"));
         String device = (String) prop.get("device");
 
         cap.setCapability(MobileCapabilityType.DEVICE_NAME, device);
