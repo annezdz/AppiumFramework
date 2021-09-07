@@ -1,5 +1,6 @@
 package org.practise;
 
+import PageObject.ApiDemoPageObject;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.testng.annotations.Test;
@@ -13,14 +14,19 @@ public class ApiDemoTest extends BaseTeste {
     public void apiDemo() throws IOException {
 
         AndroidDriver<AndroidElement> driver = capabilities("apiDemo");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.findElementByXPath("//android.widget.TextView[@text='Preference']").click();
-        driver.findElementByXPath("//android.widget.TextView[@text='3. Preference dependencies']").click();
-        driver.findElementById("android:id/checkbox").click();
-        driver.findElementByXPath("(//android.widget.RelativeLayout)[2]").click();
-        driver.findElementByClassName("android.widget.EditText").sendKeys("hello");
-        driver.findElementsByClassName("android.widget.Button").get(1).click();
+        Utilities utilities = new Utilities(driver);
 
+        ApiDemoPageObject apiDemoPageObject = new ApiDemoPageObject(driver);
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        utilities.tvText("Preference");
+        utilities.tvText("3. Preference dependencies");
+
+        apiDemoPageObject.getCheckbox().click();
+
+        apiDemoPageObject.getRelativeLayout().click();
+        apiDemoPageObject.getEditText().sendKeys("hello");
+        apiDemoPageObject.getButton().get(1).click();
 
     }
 }

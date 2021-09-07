@@ -27,6 +27,13 @@ public class CheckoutPageObject {
     @AndroidFindBy(id = "com.androidsample.generalstore:id/btnProceed")
     private WebElement btnProceed;
 
+    @AndroidFindBy(id = "android:id/button1")
+    private WebElement button;
+
+    @AndroidFindBy(id = "com.androidsample.generalstore:id/termsButton")
+    private WebElement termsButton;
+
+
     public List<WebElement> getProductList() {
         return productList;
     }
@@ -41,5 +48,13 @@ public class CheckoutPageObject {
 
     public WebElement getBtnProceed() {
         return btnProceed;
+    }
+
+    public WebElement getButton() {
+        return button;
+    }
+
+    public WebElement getTermsButton() {
+        return termsButton;
     }
 }

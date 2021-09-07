@@ -6,11 +6,8 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.Properties;
 
 public class Base {
     public static AndroidDriver<AndroidElement> capabilities(String appName) throws IOException {

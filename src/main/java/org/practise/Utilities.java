@@ -23,6 +23,10 @@ public class Utilities {
             ".scrollIntoView(new UiSelector().textMatches(\""+text+"\").instance(0))"));
     }
 
+    public void tvText(String text){
+        driver.findElementByXPath("//android.widget.TextView[@text=\""+text+"\"]").click();
+    }
+
 
 
 }

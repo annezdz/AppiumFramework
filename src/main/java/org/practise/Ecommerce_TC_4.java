@@ -104,14 +104,13 @@ public class Ecommerce_TC_4 extends BaseTeste {
         TouchAction action = new TouchAction(driver);
         action.tap(tapOptions().withElement(element(checkbox))).perform();
 
-        WebElement terms = driver.findElement(By.id("com.androidsample.generalstore:id/termsButton"));
+        WebElement terms = checkoutPageObject.getTermsButton();
 
         action.longPress(longPressOptions().withElement(element(terms))
                 .withDuration(Duration.ofSeconds(2))).release().perform();
 
-        driver.findElement(By.id("android:id/button1")).click();
+        checkoutPageObject.getButton().click();
         checkoutPageObject.getBtnProceed().click();
-
     }
 
     public static double getAmount(String value) {
