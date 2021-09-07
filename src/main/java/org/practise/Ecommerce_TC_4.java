@@ -1,7 +1,8 @@
 package org.practise;
 
-import PageObject.FormPage;
-import com.google.common.annotations.VisibleForTesting;
+import PageObject.CheckoutPageObject;
+import PageObject.FormPageObject;
+import PageObject.ProductsPageObject;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
@@ -12,7 +13,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -30,63 +30,64 @@ public class Ecommerce_TC_4 extends BaseTeste {
         AndroidDriver<AndroidElement> driver = capabilities("generalStore");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        FormPage formPage = new FormPage(driver);
+        FormPageObject formPage = new FormPageObject(driver);
 
         //formPage.nameField.sendKeys("Anne");
         formPage.getNameField().sendKeys("Anne");
         driver.hideKeyboard();
-        formPage.femaleOption.click();
+        formPage.getFemaleOption().click();
         formPage.getCountrySelection().click();
 
         Utilities utilities = new Utilities(driver);
 
-        utilities.scrollToText("Belarus");
+        utilities.scrollToText("Barbados");
 
-        driver.findElementById("com.androidsample.generalstore:id/btnLetsShop").click();
+        formPage.getBtnLetsShop().click();
 
-        driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()" +
-                ".resourceId(\"com.androidsample.generalstore:id/rvProductList\"))" +
-                ".scrollIntoView(new UiSelector().textMatches(\"Air Jordan 4 Retro\").instance(0))"));
+        ProductsPageObject productsPageObject = new ProductsPageObject(driver);
+        utilities.scrollToMatches("Nike Blazer Mid '77");
 
-        int count = driver.findElementsById("com.androidsample.generalstore:id/productName").size();
+        int count = productsPageObject.getProductName().size();
+
         for (int i = 0; i < count; i++) {
-            String name = driver.findElementsById("com.androidsample.generalstore:id/productName").get(i).getText();
+            String name = productsPageObject.getProductName().get(i).getText();
 
-            if (Objects.equals(name, "Air Jordan 4 Retro")) {
-                driver.findElements(By.id("com.androidsample.generalstore:id/productAddCart")).get(i).click();
+            if (Objects.equals(name, "Nike Blazer Mid '77")) {
+                productsPageObject.getAddProductCart().get(i).click();
                 break;
             }
         }
-        driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()" +
-                ".resourceId(\"com.androidsample.generalstore:id/rvProductList\"))" +
-                ".scrollIntoView(new UiSelector().textMatches(\"Air Jordan 1 Mid SE\").instance(0))"));
+
+        utilities.scrollToMatches("Air Jordan 1 Mid SE");
 
         for (int i = 0; i < count; i++) {
-            String name = driver.findElementsById("com.androidsample.generalstore:id/productName").get(i).getText();
+            String name = productsPageObject.getProductName().get(i).getText();
 
             if (Objects.equals(name, "Air Jordan 1 Mid SE")) {
-                driver.findElements(By.id("com.androidsample.generalstore:id/productAddCart")).get(i).click();
+                productsPageObject.getAddProductCart().get(i).click();
                 break;
             }
         }
-        driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
+        productsPageObject.getBtnCart().click();
 
         Thread.sleep(4000);
-        driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"$160.97\"));");
 
-        int counte = driver.findElements(By.id("com.androidsample.generalstore:id/productPrice")).size();
+        utilities.scrollToText("$110.0");
+
+        CheckoutPageObject checkoutPageObject = new CheckoutPageObject(driver);
+
+        int counte = checkoutPageObject.getProductList().size();
         double sum = 0;
 
         for (int i = 0; i < counte; i++) {
-            String amount1 = driver.findElements(By.id("com.androidsample.generalstore:id/productPrice"))
-                    .get(i).getText();
+            String amount1 = checkoutPageObject.getProductList().get(i).getText();
             double amount = getAmount(amount1);
             sum += amount;
         }
 
         System.out.println("Total: " + sum);
 
-        String totalValue = driver.findElement(By.id("com.androidsample.generalstore:id/totalAmountLbl")).getText();
+        String totalValue = checkoutPageObject.totalAmount.getText();
 
         totalValue = totalValue.substring(1);
         double num = Double.parseDouble(totalValue);
@@ -97,14 +98,11 @@ public class Ecommerce_TC_4 extends BaseTeste {
 
         //Mobile Gestures
 
-        //driver.findElement(By.className("android.widget.CheckBox")).click();
-        WebElement checkbox = driver.findElement(By.className("android.widget.CheckBox"));
+        checkoutPageObject.getCheckBox().click();
+        WebElement checkbox = checkoutPageObject.getCheckBox();
 
         TouchAction action = new TouchAction(driver);
         action.tap(tapOptions().withElement(element(checkbox))).perform();
-
-
-        //TouchAction action = new TouchAction(driver);
 
         WebElement terms = driver.findElement(By.id("com.androidsample.generalstore:id/termsButton"));
 
@@ -112,8 +110,7 @@ public class Ecommerce_TC_4 extends BaseTeste {
                 .withDuration(Duration.ofSeconds(2))).release().perform();
 
         driver.findElement(By.id("android:id/button1")).click();
-        driver.findElement(By.id("com.androidsample.generalstore:id/btnProceed")).click();
-
+        checkoutPageObject.getBtnProceed().click();
 
     }
 

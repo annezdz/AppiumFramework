@@ -7,9 +7,9 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-public class FormPage {
+public class FormPageObject {
 
-    public FormPage(AndroidDriver<AndroidElement> driver){
+    public FormPageObject(AndroidDriver<AndroidElement> driver){
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
@@ -17,10 +17,13 @@ public class FormPage {
     private WebElement nameField;
 
     @AndroidFindBy(xpath = "//android.widget.RadioButton[@text='Female']")
-    public WebElement femaleOption;
+    private WebElement femaleOption;
 
     @AndroidFindBy(id = "android:id/text1")
     private WebElement countrySelection;
+
+    @AndroidFindBy(id= "com.androidsample.generalstore:id/btnLetsShop")
+    private WebElement btnLetsShop;
 
     public WebElement getNameField() {
         return nameField;
@@ -28,6 +31,14 @@ public class FormPage {
 
     public WebElement getCountrySelection() {
         return countrySelection;
+    }
+
+    public WebElement getBtnLetsShop() {
+        return btnLetsShop;
+    }
+
+    public WebElement getFemaleOption() {
+        return femaleOption;
     }
 }
 

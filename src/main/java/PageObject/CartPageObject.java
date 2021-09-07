@@ -9,15 +9,16 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class CheckoutPage {
+public class CartPageObject {
 
-    public CheckoutPage(AndroidDriver<AndroidElement> driver){
+    public CartPageObject(AndroidDriver<AndroidElement> driver){
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
-    @AndroidFindBy(id="com.androidsample.generalstore:id/productPrice")
-    public List<WebElement> productList;
+    @AndroidFindBy(id = "com.androidsample.generalstore:id/productPrice")
+    private List<WebElement> productPrice;
 
-    @AndroidFindBy(id="com.androidsample.generalstore:id/totalAmountLbl")
-    public WebElement totalAmount;
+    public List<WebElement> getProductPrice() {
+        return productPrice;
+    }
 }
