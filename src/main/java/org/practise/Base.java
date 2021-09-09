@@ -3,6 +3,7 @@ package org.practise;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -10,8 +11,15 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Base {
-    public static AndroidDriver<AndroidElement> capabilities(String appName) throws IOException {
 
+    public static AppiumDriverLocalService service;
+
+    public void startServer(){
+        service = AppiumDriverLocalService.buildDefaultService();
+        service.start();
+    }
+
+    public static AndroidDriver<AndroidElement> capabilities(String appName) throws IOException {
 
         String projectPath = System.getProperty("user.dir");
         File apk = new File(projectPath + "/src/General-Store.apk");
