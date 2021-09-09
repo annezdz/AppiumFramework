@@ -11,7 +11,9 @@ import java.util.concurrent.TimeUnit;
 public class ApiDemoTest extends BaseTeste {
 
     @Test
-    public void apiDemo() throws IOException {
+    public void apiDemo() throws IOException, InterruptedException {
+
+        service = startServer();
 
         AndroidDriver<AndroidElement> driver = capabilities("apiDemo");
         Utilities utilities = new Utilities(driver);
@@ -27,6 +29,8 @@ public class ApiDemoTest extends BaseTeste {
         apiDemoPageObject.getRelativeLayout().click();
         apiDemoPageObject.getEditText().sendKeys("hello");
         apiDemoPageObject.getButton().get(1).click();
+
+        service.stop();
 
     }
 }

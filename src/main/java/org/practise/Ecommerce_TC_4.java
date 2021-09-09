@@ -26,6 +26,7 @@ public class Ecommerce_TC_4 extends BaseTeste {
     @Test
     public void totalValidation() throws InterruptedException, IOException {
 
+        service = startServer();
 
         AndroidDriver<AndroidElement> driver = capabilities("generalStore");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -111,13 +112,14 @@ public class Ecommerce_TC_4 extends BaseTeste {
 
         checkoutPageObject.getButton().click();
         checkoutPageObject.getBtnProceed().click();
+
+        service.stop();
     }
 
     public static double getAmount(String value) {
 
         value = value.substring(1);
         return Double.parseDouble(value);
-
 
         }
 }
