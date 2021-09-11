@@ -8,10 +8,16 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import resources.Listener;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Objects;
@@ -21,6 +27,7 @@ import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 
+@Listeners(Listener.class)
 public class Ecommerce_TC_4 extends BaseTeste {
 
     @Test
@@ -110,17 +117,23 @@ public class Ecommerce_TC_4 extends BaseTeste {
         action.longPress(longPressOptions().withElement(element(terms))
                 .withDuration(Duration.ofSeconds(2))).release().perform();
 
+
         checkoutPageObject.getButton().click();
         checkoutPageObject.getBtnProceed().click();
 
         service.stop();
     }
 
+    @BeforeTest
+    public void killAllNodes() throws InterruptedException, IOException {
+        Runtime.getRuntime().exec("taskkill /F /IM node.exe");
+        Thread.sleep(3000);
+    }
+
+
     public static double getAmount(String value) {
 
         value = value.substring(1);
         return Double.parseDouble(value);
-
-        }
+    }
 }
-

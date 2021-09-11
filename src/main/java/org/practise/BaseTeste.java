@@ -1,9 +1,14 @@
 package org.practise;
 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
@@ -11,6 +16,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 public class BaseTeste {
@@ -80,4 +87,17 @@ public class BaseTeste {
 
         return driver;
     }
+
+    public void getScreenshot(AndroidDriver<AndroidElement> d) throws IOException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
+        Date date = new Date();
+        String fileName = sdf.format(date);
+        File des = d.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(des, new File(System.getProperty("user.dir")+"//Screenshot/"+fileName+".png"));
+        System.out.println("Screenshot is captured");
+    }
+
+
+
+
 }
